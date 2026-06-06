@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMMOD — Mod Manager</title>
+<meta name="description" content="VMMOD — современный менеджер модов. Облачный каталог, безопасные файлы, автообновление.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg class="logo-svg" width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nG1" gradientUnits="userSpaceOnUse" x1="88" y1="90" x2="437" y2="439" gradientTransform="matrix(1 0 0 -1 0 514)">
+            <stop offset="0%"   stop-color="#00d4ff"/>
+            <stop offset="50%"  stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#ff6b35"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#nG1)" d="M153,442.1c-1.3,2.2-3.7,3.4-6.1,3.4c-1.2,0-2.5-0.3-3.6-1c-30.8-18.4-56.8-44.4-75.4-75.1 c-2-3.3-1-7.7,2.4-9.7c3.3-2,7.7-1,9.7,2.4c17.4,28.7,41.7,53,70.5,70.2C153.9,434.4,155,438.8,153,442.1z M434.1,127.3 c-2.3-3.2-6.7-3.9-9.9-1.6c-3.2,2.3-3.9,6.7-1.6,9.9c25.5,35.2,38.9,76.8,38.9,120.4c0,96.5-65.6,178.9-159.5,200.4 c-3.8,0.9-6.2,4.7-5.3,8.5c0.8,3.3,3.7,5.5,6.9,5.5c0.5,0,1.1-0.1,1.6-0.2c47.7-10.9,91-38,121.9-76.3 C458.4,355,475.7,306,475.7,256C475.7,209.4,461.3,164.9,434.1,127.3z M47.2,215.3c0.5,0.1,1.1,0.2,1.6,0.2c3.2,0,6.2-2.2,6.9-5.5 C77.1,116.1,159.5,50.5,256,50.5c23.1,0,45.7,3.8,67.3,11.3c3.7,1.3,7.7-0.7,9-4.4s-0.7-7.7-4.4-9c-23.1-8-47.3-12.1-72-12.1 c-50,0-99,17.3-137.9,48.6c-38.3,30.9-65.4,74.2-76.3,121.9C41,210.6,43.4,214.4,47.2,215.3z M352.9,168.7L295,357.5 c-1.2,4.1-3.6,9.2-8.6,13.6L166.1,491.4c-1.4,1.4-3.2,2.1-5,2.1s-3.6-0.7-5-2.1c-2.8-2.8-2.8-7.3,0-10l100.5-100.5 c-0.1,0-0.3,0-0.4,0c-7.6,0-14.9-1.5-21.6-4.5c-11-4.9-15.3-12.9-17-18.9l-57.9-187.9L17.4,311.9c-1.4,1.4-3.2,2.1-5,2.1 s-3.6-0.7-5-2.1c-2.8-2.8-2.8-7.3,0-10L165.3,144c0.3-0.3,0.6-0.6,1-1l0.4-0.4c0.2-0.2,0.5-0.5,0.8-0.7c3.8-3.3,8.4-6,13.8-7.9 c5.4-1.9,10.8-2.9,16-2.9s10,1,14.3,2.9c6.4,2.9,10.7,8.5,12.4,15.6l32.2,113.9l32.1-114.4l0.1-0.3l0.1-0.3c1.3-3.8,3.1-6.7,5-9 c0.2-0.2,0.4-0.5,0.6-0.7l95.1-95.1c2.8-2.8,7.3-2.8,10,0s2.8,7.3,0,10l-77.7,77.8c3.2,0.5,6.4,1.3,9.7,2.5c5.5,2,10.4,4.9,14.3,8.6 c5.5,5.1,8.5,11.6,8.5,18.8c0,1.1-0.1,2.3-0.3,3.5v1.7L352.9,168.7z M339.7,161.5c0-3.2-1.3-6-3.9-8.4s-5.8-4.3-9.6-5.7 c-3.8-1.4-7.5-2.1-11.1-2.1c-3.2,0-6,0.6-8.3,1.7c-2.3,1.1-4,3.2-5,6.2l-41.7,148.5c-0.6,2-2.3,3.1-4,3.1c-1.7,0-3.5-1-4-3 l-41.9-148.5c-0.6-3-2.1-5.1-4.5-6.2c-2.4-1.1-5.2-1.7-8.4-1.7c-3.6,0-7.4,0.7-11.3,2.1c-3.9,1.4-7.1,3.3-9.7,5.7l-0.5,0.5 c-2.3,2.3-3.5,5-3.5,8c0,0.6,0.2,1.6,0.6,3l58.3,189c1.2,4.4,4.3,7.7,9.2,9.9c4.9,2.2,10.2,3.3,15.8,3.3c5.8,0,11.2-1.1,16.1-3.3 c1.8-0.8,3.3-1.8,4.7-2.9l1.2-1.2c0.1-0.1,0.2-0.2,0.3-0.3c1.4-1.6,2.4-3.5,3-5.6l58-189c0-0.6,0-1.1,0.1-1.7 C339.6,162.4,339.7,161.9,339.7,161.5z"/>
+      </svg>
+      <span class="nav-brand">VMMOD</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#how">Как работает</a>
+      <a href="#vip">VIP</a>
+      <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank" class="nav-discord">
+        <svg width="16" height="16" viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+        </svg>
+        Discord
+      </a>
+    </div>
+    <a href="#download" class="btn-nav">Скачать</a>
+    <button class="nav-burger" id="navBurger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#features" onclick="toggleMenu()">Возможности</a>
+    <a href="#how" onclick="toggleMenu()">Как работает</a>
+    <a href="#vip" onclick="toggleMenu()">VIP</a>
+    <a href="#download" onclick="toggleMenu()">Скачать</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      v1.2.9 — Последняя версия
+    </div>
+    <h1 class="hero-title">
+      Мод Менеджер<br>
+      <span class="hero-title-accent">нового поколения</span>
+    </h1>
+    <p class="hero-sub">
+      Облачный каталог модов, безопасные запакованные файлы,<br>
+      автоматические обновления и удобное управление — всё в одном месте.
+    </p>
+    <div class="hero-cta">
+      <a href="#download" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать бесплатно
+      </a>
+      <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+        </svg>
+        Наш Discord
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">CLOUD</span>
+        <span class="stat-label">Облачный каталог</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">AUTO</span>
+        <span class="stat-label">Обновление</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">VIP</span>
+        <span class="stat-label">Доступ к файлам</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- App mockup -->
+  <div class="hero-mockup">
+    <div class="mockup-window">
+      <div class="mockup-titlebar">
+        <div class="mockup-tb-left">
+          <div class="mockup-dot red"></div>
+          <div class="mockup-dot amber"></div>
+          <div class="mockup-dot green"></div>
+        </div>
+        <div class="mockup-tb-title">VMMOD · MOD MANAGER</div>
+        <div class="mockup-tb-right">
+          <div class="mockup-pill"><span class="mockup-pill-dot"></span>v1.2.9</div>
+        </div>
+      </div>
+      <div class="mockup-header">
+        <div class="mockup-logo-row">
+          <div class="mockup-logo-icon">⬡</div>
+          <div>
+            <div class="mockup-logo-title">MOD MANAGER</div>
+            <div class="mockup-logo-sub">CLOUD · SECURE · AUTO-UPDATE</div>
+          </div>
+        </div>
+        <div class="mockup-tabs-row">
+          <span class="mockup-tab active">⬡ КАТАЛОГ</span>
+          <span class="mockup-tab">⬢ ПРОГРАММЫ</span>
+        </div>
+      </div>
+      <div class="mockup-tabbar">
+        <span class="mockup-t active">КАТАЛОГ</span>
+        <span class="mockup-t">ИЗВЛЕЧЬ</span>
+        <span class="mockup-t">ОБНОВЛЕНИЯ</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="mockup-sidebar-title">Категории</div>
+          <div class="mockup-cat active">📂 Все моды <span class="mockup-count">24</span></div>
+          <div class="mockup-cat">🎮 CS2 <span class="mockup-count">8</span></div>
+          <div class="mockup-cat">🎮 GTA V <span class="mockup-count">6</span></div>
+          <div class="mockup-cat">🎮 Rust <span class="mockup-count">10</span></div>
+        </div>
+        <div class="mockup-main">
+          <div class="mockup-card">
+            <div class="mockup-card-img">🎯</div>
+            <div class="mockup-card-body">
+              <div class="mockup-card-name">AimSync Pro</div>
+              <div class="mockup-card-size">v2.1 · 142 MB</div>
+              <div class="mockup-card-btn">⬇ Скачать</div>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-img">⚡</div>
+            <div class="mockup-card-body">
+              <div class="mockup-card-name">SpeedMod X</div>
+              <div class="mockup-card-size">v1.4 · 89 MB</div>
+              <div class="mockup-card-btn">⬇ Скачать</div>
+            </div>
+          </div>
+          <div class="mockup-card mockup-card-vip">
+            <div class="mockup-vip-badge">★ VIP</div>
+            <div class="mockup-card-img">🔒</div>
+            <div class="mockup-card-body">
+              <div class="mockup-card-name">UltraPack</div>
+              <div class="mockup-card-size">v3.0 · 256 MB</div>
+              <div class="mockup-card-btn mockup-card-btn-lock">🔑 VIP доступ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-label">// Возможности</div>
+    <h2 class="section-title">Всё что нужно<br><span class="accent-cyan">для работы с модами</span></h2>
+
+    <div class="features-grid">
+
+      <div class="feature-card feat-large feat-cloud">
+        <div class="feat-number">01</div>
+        <div class="feat-icon-wrap">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Облачный каталог</h3>
+          <p>Все моды хранятся в облаке. Просматривай каталог, фильтруй по категориям и скачивай нужные файлы в один клик. Каталог всегда актуален и обновляется администраторами в реальном времени.</p>
+          <div class="feat-tag">CLOUD · SECURE</div>
+        </div>
+        <div class="feat-glow feat-glow-cyan"></div>
+      </div>
+
+      <div class="feature-card feat-shield">
+        <div class="feat-number">02</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Безопасные файлы</h3>
+          <p>Все файлы проходят проверку. Защищённые архивы с паролями для VIP-участников гарантируют доступ только авторизованным пользователям.</p>
+          <div class="feat-tag">VERIFIED</div>
+        </div>
+        <div class="feat-glow feat-glow-purple"></div>
+      </div>
+
+      <div class="feature-card feat-extract">
+        <div class="feat-number">03</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Извлечение архивов</h3>
+          <p>Встроенный инструмент для распаковки архивов прямо в приложении. Не нужен WinRAR — всё делается в пару кликов.</p>
+          <div class="feat-tag">BUILT-IN</div>
+        </div>
+        <div class="feat-glow feat-glow-green"></div>
+      </div>
+
+      <div class="feature-card feat-update">
+        <div class="feat-number">04</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Авто-обновление</h3>
+          <p>Приложение автоматически проверяет и устанавливает обновления. Всегда актуальная версия без лишних действий.</p>
+          <div class="feat-tag">AUTO-UPDATE</div>
+        </div>
+        <div class="feat-glow feat-glow-orange"></div>
+      </div>
+
+      <div class="feature-card feat-programs">
+        <div class="feat-number">05</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Раздел программ</h3>
+          <p>Помимо модов — отдельный раздел с полезными программами и утилитами для геймеров. Всё в одном удобном интерфейсе.</p>
+          <div class="feat-tag">PROGRAMS</div>
+        </div>
+        <div class="feat-glow feat-glow-cyan"></div>
+      </div>
+
+      <div class="feature-card feat-vip-card">
+        <div class="feat-number">06</div>
+        <div class="feat-vip-star">★</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>VIP доступ</h3>
+          <p>Расширенный доступ ко всем запакованным файлам, приоритетная поддержка и ранний доступ к новым модам для VIP-участников.</p>
+          <div class="feat-tag">★ EXCLUSIVE</div>
+        </div>
+        <div class="feat-glow feat-glow-orange"></div>
+      </div>
+
+      <div class="feature-card feat-roles">
+        <div class="feat-number">07</div>
+        <div class="feat-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="feat-body">
+          <h3>Система ролей</h3>
+          <p>USER, VIP, ADMIN — гибкая система ролей. Администраторы управляют каталогом, пользователями и настройками прямо в приложении.</p>
+          <div class="feat-tag">ROLE SYSTEM</div>
+        </div>
+        <div class="feat-glow feat-glow-purple"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-label">// Как работает</div>
+    <h2 class="section-title">Три шага до<br><span class="accent-orange">любимого мода</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Скачай и установи</h3>
+          <p>Загрузи установщик VMMOD с нашего сайта. Следуй инструкции установщика — займёт меньше минуты.</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Войди в аккаунт</h3>
+          <p>Зарегистрируйся через Discord или получи доступ от администратора. VIP-пользователи получают ключ активации.</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Качай и играй</h3>
+          <p>Выбирай моды в каталоге, скачивай и извлекай прямо в приложении. Готово — запускай игру с новым модом!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIP -->
+<section class="vip-section" id="vip">
+  <div class="container">
+    <div class="vip-inner">
+      <div class="vip-left">
+        <div class="section-label">// VIP Доступ</div>
+        <h2 class="section-title" style="margin-bottom:16px;">Открой все<br><span class="accent-orange">возможности</span></h2>
+        <p class="vip-desc">Некоторые файлы требуют VIP-статус. Получи безлимитный доступ ко всему каталогу, приоритетную поддержку и ранние релизы новых модов.</p>
+        <ul class="vip-list">
+          <li><span class="vip-check">✓</span> Доступ ко всем запакованным файлам</li>
+          <li><span class="vip-check">✓</span> Пароли от защищённых архивов</li>
+          <li><span class="vip-check">✓</span> Приоритетная поддержка в Discord</li>
+          <li><span class="vip-check">✓</span> Ранний доступ к новым модам</li>
+          <li><span class="vip-check">✓</span> VIP-значок в приложении</li>
+        </ul>
+        <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank" class="btn-primary btn-orange">
+          Получить VIP в Discord
+        </a>
+      </div>
+      <div class="vip-right">
+        <div class="vip-card">
+          <div class="vip-card-top">
+            <span class="vip-star">★</span>
+            <span class="vip-card-label">VIP СТАТУС</span>
+          </div>
+          <div class="vip-card-title">Навсегда</div>
+          <div class="vip-card-perks">
+            <div class="vip-perk"><span class="vip-perk-dot cyan"></span>Все моды без ограничений</div>
+            <div class="vip-perk"><span class="vip-perk-dot purple"></span>Ранние релизы</div>
+            <div class="vip-perk"><span class="vip-perk-dot orange"></span>Приоритетная поддержка</div>
+            <div class="vip-perk"><span class="vip-perk-dot cyan"></span>VIP-значок в профиле</div>
+          </div>
+          <div class="vip-card-foot">Свяжись с администратором в Discord для получения VIP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download-section" id="download">
+  <div class="container">
+    <div class="download-inner">
+      <div class="download-bg-orb"></div>
+      <div class="section-label">// Скачать</div>
+      <h2 class="section-title">Начни прямо сейчас</h2>
+      <p class="download-sub">Бесплатно. Только для Windows x64. Автообновление включено.</p>
+      <div class="download-btn-wrap">
+        <a href="https://github.com/VEN6660M/venom/releases/latest" target="_blank" class="btn-download">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <div>
+            <div class="btn-download-title">Скачать VMMOD</div>
+            <div class="btn-download-sub">VMMOD-Setup-1.2.9.exe · Windows x64</div>
+          </div>
+        </a>
+      </div>
+      <div class="download-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Автообновление
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Безопасные файлы
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Бесплатно навсегда
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fG1" gradientUnits="userSpaceOnUse" x1="88" y1="90" x2="437" y2="439" gradientTransform="matrix(1 0 0 -1 0 514)">
+              <stop offset="0%"   stop-color="#00d4ff"/>
+              <stop offset="50%"  stop-color="#7c3aed"/>
+              <stop offset="100%" stop-color="#ff6b35"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#fG1)" d="M153,442.1c-1.3,2.2-3.7,3.4-6.1,3.4c-1.2,0-2.5-0.3-3.6-1c-30.8-18.4-56.8-44.4-75.4-75.1c-2-3.3-1-7.7,2.4-9.7c3.3-2,7.7-1,9.7,2.4c17.4,28.7,41.7,53,70.5,70.2C153.9,434.4,155,438.8,153,442.1z M434.1,127.3c-2.3-3.2-6.7-3.9-9.9-1.6c-3.2,2.3-3.9,6.7-1.6,9.9c25.5,35.2,38.9,76.8,38.9,120.4c0,96.5-65.6,178.9-159.5,200.4c-3.8,0.9-6.2,4.7-5.3,8.5c0.8,3.3,3.7,5.5,6.9,5.5c0.5,0,1.1-0.1,1.6-0.2c47.7-10.9,91-38,121.9-76.3C458.4,355,475.7,306,475.7,256C475.7,209.4,461.3,164.9,434.1,127.3z M47.2,215.3c0.5,0.1,1.1,0.2,1.6,0.2c3.2,0,6.2-2.2,6.9-5.5C77.1,116.1,159.5,50.5,256,50.5c23.1,0,45.7,3.8,67.3,11.3c3.7,1.3,7.7-0.7,9-4.4s-0.7-7.7-4.4-9c-23.1-8-47.3-12.1-72-12.1c-50,0-99,17.3-137.9,48.6c-38.3,30.9-65.4,74.2-76.3,121.9C41,210.6,43.4,214.4,47.2,215.3z M352.9,168.7L295,357.5c-1.2,4.1-3.6,9.2-8.6,13.6L166.1,491.4c-1.4,1.4-3.2,2.1-5,2.1s-3.6-0.7-5-2.1c-2.8-2.8-2.8-7.3,0-10l100.5-100.5c-0.1,0-0.3,0-0.4,0c-7.6,0-14.9-1.5-21.6-4.5c-11-4.9-15.3-12.9-17-18.9l-57.9-187.9L17.4,311.9c-1.4,1.4-3.2,2.1-5,2.1s-3.6-0.7-5-2.1c-2.8-2.8-2.8-7.3,0-10L165.3,144c0.3-0.3,0.6-0.6,1-1l0.4-0.4c0.2-0.2,0.5-0.5,0.8-0.7c3.8-3.3,8.4-6,13.8-7.9c5.4-1.9,10.8-2.9,16-2.9s10,1,14.3,2.9c6.4,2.9,10.7,8.5,12.4,15.6l32.2,113.9l32.1-114.4l0.1-0.3l0.1-0.3c1.3-3.8,3.1-6.7,5-9c0.2-0.2,0.4-0.5,0.6-0.7l95.1-95.1c2.8-2.8,7.3-2.8,10,0s2.8,7.3,0,10l-77.7,77.8c3.2,0.5,6.4,1.3,9.7,2.5c5.5,2,10.4,4.9,14.3,8.6c5.5,5.1,8.5,11.6,8.5,18.8c0,1.1-0.1,2.3-0.3,3.5v1.7L352.9,168.7z M339.7,161.5c0-3.2-1.3-6-3.9-8.4s-5.8-4.3-9.6-5.7c-3.8-1.4-7.5-2.1-11.1-2.1c-3.2,0-6,0.6-8.3,1.7c-2.3,1.1-4,3.2-5,6.2l-41.7,148.5c-0.6,2-2.3,3.1-4,3.1c-1.7,0-3.5-1-4-3l-41.9-148.5c-0.6-3-2.1-5.1-4.5-6.2c-2.4-1.1-5.2-1.7-8.4-1.7c-3.6,0-7.4,0.7-11.3,2.1c-3.9,1.4-7.1,3.3-9.7,5.7l-0.5,0.5c-2.3,2.3-3.5,5-3.5,8c0,0.6,0.2,1.6,0.6,3l58.3,189c1.2,4.4,4.3,7.7,9.2,9.9c4.9,2.2,10.2,3.3,15.8,3.3c5.8,0,11.2-1.1,16.1-3.3c1.8-0.8,3.3-1.8,4.7-2.9l1.2-1.2c0.1-0.1,0.2-0.2,0.3-0.3c1.4-1.6,2.4-3.5,3-5.6l58-189c0-0.6,0-1.1,0.1-1.7C339.6,162.4,339.7,161.9,339.7,161.5z"/>
+        </svg>
+        <span>VMMOD</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank">Discord</a>
+        <a href="https://steamcommunity.com/id/fm-venom/" target="_blank">Steam</a>
+      </div>
+      <div class="footer-copy">© 2024 VMMOD. Mod Manager v1.2.9</div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
