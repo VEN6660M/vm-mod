@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="theme-flash"></div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -37,6 +38,10 @@
         Lolka
       </a>
     </div>
+    <button class="btn-theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Переключить тему">
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <a href="#download" class="btn-nav">Скачать</a>
     <button class="nav-burger" id="navBurger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -76,11 +81,9 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Скачать бесплатно
       </a>
-      <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank" class="btn-ghost">
-        <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-        </svg>
-        Наш Discord
+      <a href="https://lolka.gg/uKJFxVTCw" target="_blank" class="btn-ghost">
+        <img src="https://raw.githubusercontent.com/VEN6660M/vm-mod/refs/heads/main/512.png" alt="Иконка" width="24" height="24">
+        Наша Lolka
       </a>
     </div>
     <div class="hero-stats">
@@ -267,7 +270,7 @@
         </div>
         <div class="feat-body">
           <h3>Система ролей</h3>
-          <p>USER, VIP, ADMIN — гибкая система ролей. Администраторы управляют каталогом, пользователями и настройками прямо в приложении.</p>
+          <p>USER, VIP, ADMIN - гибкая система ролей. Администраторы управляют каталогом, пользователями и настройками прямо в приложении.</p>
           <div class="feat-tag">ROLE SYSTEM</div>
         </div>
         <div class="feat-glow feat-glow-purple"></div>
@@ -290,7 +293,7 @@
         </div>
         <div class="step-content">
           <h3>Скачай и установи</h3>
-          <p>Одним кликом — загружаешь установщик VMMOD. Никаких лишних шагов, всё готово меньше чем за минуту.</p>
+          <p>Одним кликом - загружаешь установщик VMMOD. Никаких лишних шагов, всё готово меньше чем за минуту.</p>
         </div>
         <div class="step-line"></div>
       </div>
@@ -301,7 +304,7 @@
         </div>
         <div class="step-content">
           <h3>Войди в аккаунт</h3>
-          <p>Войдите в аккаунт — укажите логин и пароль или используйте Discord для мгновенного доступа.</p>
+          <p>Войдите в аккаунт - укажите свой личный ключ для мгновенного доступа.</p>
         </div>
         <div class="step-line"></div>
       </div>
@@ -334,8 +337,8 @@
           <li><span class="vip-check">✓</span> Ранний доступ к новым модам</li>
           <li><span class="vip-check">✓</span> VIP-значок в приложении</li>
         </ul>
-        <a href="https://discord.gg/CpcC6RFkxQ" target="_blank" class="btn-primary btn-orange">
-          Получить VIP в Discord
+        <a href="https://lolka.gg/uKJFxVTCw" target="_blank" class="btn-primary btn-orange">
+          Получить VIP в Lolka
         </a>
       </div>
       <div class="vip-right">
@@ -351,7 +354,7 @@
             <div class="vip-perk"><span class="vip-perk-dot orange"></span>Приоритетная поддержка</div>
             <div class="vip-perk"><span class="vip-perk-dot cyan"></span>VIP-значок в профиле</div>
           </div>
-          <div class="vip-card-foot">Свяжись с администратором в Discord для получения VIP</div>
+          <div class="vip-card-foot">Свяжись с администратором в Lolka для получения VIP</div>
         </div>
       </div>
     </div>
@@ -406,7 +409,7 @@
         <span>VMMOD</span>
       </div>
       <div class="footer-links">
-        <a href="https://discord.com/invite/z7qpdqTvnD" target="_blank">Discord</a>
+        <a href="https://lolka.gg/uKJFxVTCw" target="_blank">Lolka</a>
         <a href="https://steamcommunity.com/id/fm-venom/" target="_blank">Steam</a>
       </div>
       <div class="footer-copy">© 2026 VMMOD. Mod Manager v1.4.3</div>
