@@ -79,6 +79,29 @@ function toggleMenu() {
   mobile.classList.toggle('open');
 }
 
+// Выезжающее меню категорий внутри превью программы (моб.)
+function toggleMockupMenu() {
+  const sidebar = document.getElementById('mockupSidebar');
+  const overlay = document.getElementById('mockupSidebarOverlay');
+  const btn = document.getElementById('mockupMenuBtn');
+  if (!sidebar) return;
+  const open = !sidebar.classList.contains('open');
+  sidebar.classList.toggle('open', open);
+  if (overlay) overlay.classList.toggle('open', open);
+  if (btn) {
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+}
+
+// Закрывать меню категорий при выборе категории
+document.querySelectorAll('#mockupSidebar .mockup-cat').forEach((cat) => {
+  cat.addEventListener('click', () => {
+    const sidebar = document.getElementById('mockupSidebar');
+    if (sidebar && sidebar.classList.contains('open')) toggleMockupMenu();
+  });
+});
+
 // Scroll reveal
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {

@@ -143,18 +143,22 @@
         </div>
       </div>
       <div class="mockup-tabbar">
+        <button class="mockup-menu-btn" id="mockupMenuBtn" onclick="toggleMockupMenu()" aria-label="Категории" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
         <span class="mockup-t active">КАТАЛОГ</span>
         <span class="mockup-t">ИЗВЛЕЧЬ</span>
         <span class="mockup-t">ОБНОВЛЕНИЯ</span>
       </div>
       <div class="mockup-body">
-        <div class="mockup-sidebar">
+        <div class="mockup-sidebar" id="mockupSidebar">
           <div class="mockup-sidebar-title">Категории</div>
           <div class="mockup-cat active">📂 Все моды <span class="mockup-count">24</span></div>
           <div class="mockup-cat">🎮 CS2 <span class="mockup-count">8</span></div>
           <div class="mockup-cat">🎮 GTA V <span class="mockup-count">6</span></div>
           <div class="mockup-cat">🎮 Rust <span class="mockup-count">10</span></div>
         </div>
+        <div class="mockup-sidebar-overlay" id="mockupSidebarOverlay" onclick="toggleMockupMenu()"></div>
         <div class="mockup-main">
           <div class="mockup-card">
             <div class="mockup-card-img">🎯</div>
