@@ -83,11 +83,18 @@ function toggleTheme() {
   }, 520);
 }
 
-// Nav scroll effect
+// Nav scroll effect + scroll-to-top button visibility
 const nav = document.getElementById('nav');
+const btnToTop = document.getElementById('btnToTop');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
+  if (btnToTop) btnToTop.classList.toggle('visible', window.scrollY > 400);
 });
+
+// Scroll back to top
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 // Mobile menu toggle
 function toggleMenu() {
