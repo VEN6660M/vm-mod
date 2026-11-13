@@ -9,51 +9,6 @@
   }
 })();
 
-// Particle burst on theme toggle
-function spawnThemeParticles(originEl, isDark) {
-  const rect = originEl.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-
-  const palettes = {
-    light: ['#ffd700', '#ffb347', '#ff8c42', '#fff176', '#ffe082'],
-    dark:  ['#00d4ff', '#7c3aed', '#ff6b35', '#00ff88', '#c084fc']
-  };
-  const colors = palettes[isDark ? 'dark' : 'light'];
-  const shapes = ['★', '✦', '✸', '•', '◆', '✶'];
-
-  const COUNT = 18;
-
-  for (let i = 0; i < COUNT; i++) {
-    const el = document.createElement('span');
-    el.className = 'theme-particle';
-    el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-
-    const angle = (360 / COUNT) * i + (Math.random() - .5) * 22;
-    const dist  = 55 + Math.random() * 90;
-    const rad   = angle * Math.PI / 180;
-    const tx    = Math.cos(rad) * dist;
-    const ty    = Math.sin(rad) * dist;
-    const size  = 10 + Math.random() * 12;
-    const dur   = .55 + Math.random() * .35;
-    const delay = Math.random() * .08;
-
-    el.style.cssText = `
-      left: ${cx}px; top: ${cy}px;
-      font-size: ${size}px;
-      color: ${colors[Math.floor(Math.random() * colors.length)]};
-      text-shadow: 0 0 6px currentColor;
-      --tx: ${tx}px; --ty: ${ty}px;
-      --dur: ${dur}s;
-      animation-delay: ${delay}s;
-      border-radius: 0;
-    `;
-
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), (dur + delay + .1) * 1000);
-  }
-}
-
 // ═══ Переключение темы без вспышек ═══
 // Механика:
 // 1) Вешаем класс `theme-switching` на <html>. Он глобально отключает
@@ -89,10 +44,6 @@ function toggleTheme() {
       // 3) Меняем тему под оверлеем
       html.setAttribute('data-theme', next);
       localStorage.setItem('vmmod-theme', next);
-
-      // Частицы вокруг кнопки
-      const originEl = document.getElementById('themeToggle');
-      if (originEl) spawnThemeParticles(originEl, next === 'dark');
 
       // 4) Плавно убираем оверлей, затем снимаем класс
       requestAnimationFrame(() => {
