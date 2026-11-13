@@ -63,23 +63,14 @@ function toggleTheme() {
   const btn = document.getElementById('themeToggle');
   if (btn) spawnThemeParticles(btn, isDark);
 
-  // Flash overlay
-  const flash = document.getElementById('theme-flash');
-  flash.classList.remove('flash-active');
-  void flash.offsetWidth;
-
   // Enable smooth transition for all elements
   html.classList.add('theme-transitioning');
   html.setAttribute('data-theme', next);
   localStorage.setItem('vmmod-theme', next);
 
-  // Trigger flash
-  flash.classList.add('flash-active');
-
   // Cleanup
   setTimeout(() => {
     html.classList.remove('theme-transitioning');
-    flash.classList.remove('flash-active');
   }, 520);
 }
 
