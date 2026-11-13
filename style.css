@@ -676,6 +676,23 @@ html.theme-switching .hero-grid {
   .hero-content { padding: 48px 20px 24px; }
   .hero-sub br { display: none; }
   .hero-mockup { padding: 0 20px 48px; }
+
+  /* ── Превью программы: адаптация под мобильные ── */
+  .mockup-header { flex-wrap: wrap; row-gap: 8px; padding: 10px 12px; }
+  .mockup-tabs-row { margin-left: 0; width: 100%; justify-content: center; }
+  .mockup-tab { flex: 1; text-align: center; padding: 5px 8px; }
+  .mockup-body { flex-direction: column; height: auto; }
+  .mockup-sidebar {
+    width: 100%; flex-shrink: 1;
+    border-right: none; border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 10px;
+  }
+  .mockup-sidebar-title { width: 100%; border-bottom: none; padding: 0 0 4px; margin-bottom: 0; }
+  .mockup-cat { border-left: none; border-radius: 6px; padding: 5px 8px; background: var(--bg); }
+  .mockup-cat.active { border-left: none; }
+  .mockup-main { padding: 10px; gap: 8px; }
+  .mockup-card { width: calc(50% - 4px); }
+
   .container { padding: 0 16px; }
   .section-title { margin-bottom: 36px; }
   .features, .how, .vip-section, .download-section { padding: 80px 0; }
@@ -720,4 +737,8 @@ html.theme-switching .hero-grid {
 
 @media (max-width: 640px) {
   .btn-to-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
+
+  /* Превью программы: на узких экранах карточки на всю ширину */
+  .mockup-card { width: 100%; }
+  .mockup-tb-title { font-size: .5rem; }
 }
