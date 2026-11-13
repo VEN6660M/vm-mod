@@ -359,7 +359,7 @@ html.theme-switching .hero-grid {
 .mockup-logo-sub { font-family: 'JetBrains Mono', monospace; font-size: .42rem; color: var(--dim); letter-spacing: .08em; margin-top: 2px; }
 .mockup-tabs-row { margin-left: auto; display: flex; gap: 2px; background: var(--bg3); border: 1px solid var(--border); padding: 2px; border-radius: 8px; overflow: hidden; }
 .mockup-tab { font-family: 'JetBrains Mono', monospace; font-size: .52rem; color: var(--dim); padding: 5px 12px; letter-spacing: .06em; cursor: default; border-radius: 5px; }
-.mockup-tab.active { background: #0c0c0c85; color: var(--bg); }
+.mockup-tab.active { background: #9dc6f9; color: #000000; }
 
 .mockup-tabbar {
   background: var(--bg3);
