@@ -8,10 +8,21 @@
 <meta name="description" content="VMMOD — современный менеджер модов. Облачный каталог, безопасные файлы, автообновление.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var t = localStorage.getItem('vmmod-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    var bg = t === 'dark' ? '#0a0c10' : '#fdf8f2';
+    document.documentElement.style.backgroundColor = bg;
+    var s = document.createElement('style');
+    s.textContent = 'html,body{background-color:' + bg + ' !important;}';
+    s.id = 'boot-bg';
+    document.head.appendChild(s);
+  })();
+</script>
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
-<div id="theme-flash"></div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -429,6 +440,9 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
-<script src="script.js"></script>
+<!-- Оверлей для плавной смены темы без вспышки -->
+<div class="theme-overlay" id="themeOverlay" aria-hidden="true"></div>
+
+<script src="script.js?v=5"></script>
 </body>
 </html>

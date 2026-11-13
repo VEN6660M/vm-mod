@@ -1,9 +1,12 @@
 // ═══ VMMOD LANDING · SCRIPT ═══
 
-// Theme toggle
 (function () {
-  const saved = localStorage.getItem('vmmod-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
+  if (!document.documentElement.getAttribute('data-theme')) {
+    document.documentElement.setAttribute(
+      'data-theme',
+      localStorage.getItem('vmmod-theme') || 'dark'
+    );
+  }
 })();
 
 // Particle burst on theme toggle
@@ -12,14 +15,11 @@ function spawnThemeParticles(originEl, isDark) {
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
 
-  // Dark→Light: warm gold/orange sparks; Light→Dark: cyan/purple stars
   const palettes = {
     light: ['#ffd700', '#ffb347', '#ff8c42', '#fff176', '#ffe082'],
     dark:  ['#00d4ff', '#7c3aed', '#ff6b35', '#00ff88', '#c084fc']
   };
   const colors = palettes[isDark ? 'dark' : 'light'];
-
-  // Shapes: ★ ✦ ✸ · ◆
   const shapes = ['★', '✦', '✸', '•', '◆', '✶'];
 
   const COUNT = 18;
@@ -54,24 +54,59 @@ function spawnThemeParticles(originEl, isDark) {
   }
 }
 
+// ═══ Переключение темы без вспышек ═══
+// Механика:
+// 1) Вешаем класс `theme-switching` на <html>. Он глобально отключает
+//    backdrop-filter, filter: blur, mask-image, box-shadow и все transition
+//    у проблемных блоков (nav, hero-orb, hero-grid, feature-card, mockup-window,
+//    vip-card, download-bg-orb, feat-glow и т.д.) — именно они дают вспышки.
+// 2) Оверлей цвета текущего фона перекрывает страницу, под ним меняем тему.
+// 3) Оверлей плавно исчезает, класс снимается — эффекты возвращаются.
+let themeBusy = false;
+
 function toggleTheme() {
+  if (themeBusy) return;
+  themeBusy = true;
+
   const html = document.documentElement;
+  const overlay = document.getElementById('themeOverlay');
   const isDark = html.getAttribute('data-theme') === 'dark';
   const next = isDark ? 'light' : 'dark';
 
-  // Spawn particles from the toggle button
-  const btn = document.getElementById('themeToggle');
-  if (btn) spawnThemeParticles(btn, isDark);
+  // 1) Отключаем все эффекты, которые могут дать вспышку
+  html.classList.add('theme-switching');
 
-  // Enable smooth transition for all elements
-  html.classList.add('theme-transitioning');
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('vmmod-theme', next);
+  // 2) Оверлей текущего фона (непрозрачный)
+  overlay.style.transition = 'none';
+  overlay.style.backgroundColor = isDark ? '#0a0c10' : '#fdf8f2';
+  overlay.style.opacity = '1';
 
-  // Cleanup
-  setTimeout(() => {
-    html.classList.remove('theme-transitioning');
-  }, 520);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const styleEl = document.getElementById('boot-bg');
+      if (styleEl) styleEl.remove();
+
+      // 3) Меняем тему под оверлеем
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('vmmod-theme', next);
+
+      // Частицы вокруг кнопки
+      const originEl = document.getElementById('themeToggle');
+      if (originEl) spawnThemeParticles(originEl, next === 'dark');
+
+      // 4) Плавно убираем оверлей, затем снимаем класс
+      requestAnimationFrame(() => {
+        overlay.style.transition = 'opacity .32s ease';
+        overlay.style.opacity = '0';
+
+        setTimeout(() => {
+          overlay.style.transition = 'none';
+          html.classList.remove('theme-switching');
+          themeBusy = false;
+        }, 340);
+      });
+    });
+  });
 }
 
 // Nav scroll effect + scroll-to-top button visibility
@@ -82,12 +117,10 @@ window.addEventListener('scroll', () => {
   if (btnToTop) btnToTop.classList.toggle('visible', window.scrollY > 400);
 });
 
-// Scroll back to top
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Mobile menu toggle
 function toggleMenu() {
   const burger = document.getElementById('navBurger');
   const mobile = document.getElementById('navMobile');

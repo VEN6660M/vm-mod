@@ -25,7 +25,7 @@
   --dim: #7a6248;
   --ok: #009940;
 }
-[data-theme="light"] .nav { background: rgba(253,248,242,.94); }
+[data-theme="light"] .nav { background: rgba(253,248,242,.96); }
 [data-theme="light"] .hero-title,
 [data-theme="light"] .section-title,
 [data-theme="light"] .feat-body h3,
@@ -72,24 +72,78 @@
 
 html { scroll-behavior: smooth; }
 
-/* ── THEME TRANSITION ── */
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition:
-    background-color .35s ease,
-    color .35s ease,
-    border-color .35s ease,
-    box-shadow .35s ease,
-    opacity .35s ease !important;
+html {
+  background-color: var(--bg);
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── ОВЕРЛЕЙ ДЛЯ СМЕНЫ ТЕМЫ ── */
+.theme-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  background-color: #0a0c10;
+  will-change: opacity;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ГЛОБАЛЬНАЯ БЛОКИРОВКА ЭФФЕКТОВ НА ВРЕМЯ СМЕНЫ ТЕМЫ
+   Именно эти свойства дают вспышки в отдельных блоках:
+   - backdrop-filter у .nav
+   - filter: blur у .hero-orb и .feat-glow
+   - mask-image у .hero-grid
+   - box-shadow у .mockup-window, .vip-card, .feature-card:hover
+   - transition: background-color у карточек/секций
+   На время переключения всё это отключаем — тема меняется «жёстко»
+   под непрозрачным оверлеем, артефактов не видно.
+   ══════════════════════════════════════════════════════════ */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+html.theme-switching .nav {
+  background-color: rgba(10,12,16,.98) !important;
+}
+[data-theme="light"].theme-switching .nav {
+  background-color: rgba(253,248,242,.98) !important;
+}
+/* Убираем «светящиеся» тени и блюры, которые могут просвечивать */
+html.theme-switching .hero-orb,
+html.theme-switching .feat-glow,
+html.theme-switching .download-bg-orb {
+  filter: none !important;
+  opacity: 0 !important;
+}
+html.theme-switching .mockup-window,
+html.theme-switching .vip-card,
+html.theme-switching .feature-card,
+html.theme-switching .download-inner,
+html.theme-switching .btn-download {
+  box-shadow: none !important;
+}
+html.theme-switching .hero-grid {
+  background: none !important;
 }
 
 /* ── THEME PARTICLES ── */
 .theme-particle {
   position: fixed;
   pointer-events: none;
-  z-index: 10000;
+  z-index: 100000;
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(1);
   animation: particle-fly var(--dur, .7s) ease-out forwards;
@@ -98,39 +152,6 @@ html.theme-transitioning *::after {
 @keyframes particle-fly {
   0%   { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
   100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0); }
-}
-
-/* ── THEME FLASH OVERLAY ── */
-#theme-flash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,.55) 0%, transparent 70%);
-}
-
-[data-theme="dark"] #theme-flash {
-  background: radial-gradient(ellipse at center, rgba(0,212,255,.18) 0%, rgba(124,58,237,.12) 40%, transparent 70%);
-}
-
-#theme-flash.flash-active {
-  animation: theme-flash-anim .5s ease-out forwards;
-}
-
-@keyframes theme-flash-anim {
-  0%   { opacity: 0;    transform: scale(.85); }
-  18%  { opacity: 1;    transform: scale(1.04); }
-  55%  { opacity: .45;  transform: scale(1); }
-  100% { opacity: 0;    transform: scale(1); }
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* ── SCROLLBAR ── */
@@ -148,8 +169,9 @@ body {
 /* ── NAV ── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(10,12,16,.85);
+  background: rgba(10,12,16,.92);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
   transition: border-color .3s;
 }
@@ -159,7 +181,7 @@ body {
   height: 64px; display: flex; align-items: center; gap: 32px;
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
-.nav-brand { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 1rem; letter-spacing: .12em; color: #fff; }
+.nav-brand { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 1rem; letter-spacing: .12em; color: #fff; transition: color .3s ease; }
 .nav-links { display: flex; gap: 28px; margin-left: auto; }
 .nav-links a {
   color: var(--dim); text-decoration: none; font-size: .9rem; font-weight: 500;
@@ -190,6 +212,7 @@ body {
 .nav-mobile {
   display: none; flex-direction: column; padding: 12px 24px 20px;
   border-top: 1px solid var(--border);
+  background: var(--bg);
 }
 .nav-mobile a { padding: 12px 0; color: var(--text); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border); }
 .nav-mobile a:last-child { border-bottom: none; }
@@ -259,13 +282,13 @@ body {
 
 .btn-primary {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 28px; background: var(--accent); color: var(--bg);
+  padding: 14px 28px; background: #191b20; color: var(--bg);
   text-decoration: none; font-weight: 700; font-size: .9rem; letter-spacing: .04em;
   transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 0 0 rgba(0,212,255,.4);
+  box-shadow: 0 0 0 #141922;
   border-radius: 10px;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,255,.35); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px #141922; }
 
 .btn-orange { background: var(--a2); }
 .btn-orange:hover { box-shadow: 0 8px 32px rgba(255,107,53,.35); }
@@ -336,7 +359,7 @@ body {
 .mockup-logo-sub { font-family: 'JetBrains Mono', monospace; font-size: .42rem; color: var(--dim); letter-spacing: .08em; margin-top: 2px; }
 .mockup-tabs-row { margin-left: auto; display: flex; gap: 2px; background: var(--bg3); border: 1px solid var(--border); padding: 2px; border-radius: 8px; overflow: hidden; }
 .mockup-tab { font-family: 'JetBrains Mono', monospace; font-size: .52rem; color: var(--dim); padding: 5px 12px; letter-spacing: .06em; cursor: default; border-radius: 5px; }
-.mockup-tab.active { background: var(--accent); color: var(--bg); }
+.mockup-tab.active { background: #0c0c0c; color: var(--bg); }
 
 .mockup-tabbar {
   background: var(--bg3);
@@ -377,11 +400,9 @@ body {
 
 /* ── SECTION COMMONS ── */
 .section-label { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--accent); letter-spacing: .12em; margin-bottom: 12px; }
-.section-title { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: #fff; margin-bottom: 52px; }
+.section-title { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: #fff; margin-bottom: 52px; transition: color .3s ease; }
 
-/* ══════════════════════════════════════════
-   ── FEATURES — NEW DESIGN ──
-   ══════════════════════════════════════════ */
+/* ── FEATURES ── */
 .features { padding: 120px 0; }
 
 .features-grid {
@@ -390,13 +411,12 @@ body {
   gap: 16px;
 }
 
-/* Base card */
 .feature-card {
   position: relative; overflow: hidden;
   background: var(--bg2);
   border: 1px solid var(--border);
   padding: 32px 28px 28px;
-  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
   display: flex; flex-direction: column;
   cursor: default;
   border-radius: 14px;
@@ -407,10 +427,8 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,.4);
 }
 
-/* Large card spans 2 cols */
 .feat-large { grid-column: span 2; }
 
-/* Number watermark */
 .feat-number {
   position: absolute; top: 20px; right: 24px;
   font-family: 'JetBrains Mono', monospace;
@@ -421,7 +439,6 @@ body {
   user-select: none;
 }
 
-/* Icon wrap */
 .feat-icon-wrap {
   width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
@@ -432,12 +449,10 @@ body {
 }
 .feature-card:hover .feat-icon-wrap { transform: scale(1.08); }
 
-/* Body text */
 .feat-body { position: relative; z-index: 1; }
-.feat-body h3 { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: -.01em; }
+.feat-body h3 { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: -.01em; transition: color .3s ease; }
 .feat-body p { font-size: .875rem; color: var(--dim); line-height: 1.7; margin-bottom: 0; }
 
-/* Tag pill */
 .feat-tag {
   display: inline-block; margin-top: 18px;
   font-family: 'JetBrains Mono', monospace; font-size: .6rem;
@@ -446,7 +461,6 @@ body {
   font-weight: 600;
 }
 
-/* Glow blob bottom-right */
 .feat-glow {
   position: absolute; bottom: -40px; right: -40px;
   width: 140px; height: 140px;
@@ -460,7 +474,6 @@ body {
 .feat-glow-green { background: rgba(0,255,136,.15); }
 .feat-glow-orange{ background: rgba(255,107,53,.18); }
 
-/* Top accent line per color */
 .feature-card::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -468,8 +481,6 @@ body {
 }
 .feature-card:hover::before { opacity: 1; }
 
-/* Color variants */
-.feat-cloud  { }
 .feat-cloud .feat-icon-wrap  { background: rgba(0,212,255,.1); color: var(--accent); }
 .feat-cloud .feat-tag        { color: var(--accent); border-color: rgba(0,212,255,.3); }
 .feat-cloud::before          { background: var(--accent); }
@@ -495,7 +506,6 @@ body {
 .feat-programs::before       { background: var(--accent); }
 .feat-programs:hover         { border-color: rgba(0,212,255,.3); }
 
-/* VIP card — special treatment */
 .feat-vip-card {
   background: linear-gradient(145deg, rgba(255,107,53,.07) 0%, rgba(124,58,237,.06) 100%);
   border-color: rgba(255,107,53,.25);
@@ -529,6 +539,7 @@ body {
   background: var(--bg2);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  transition: background-color .3s ease;
 }
 
 .steps { display: flex; gap: 0; align-items: stretch; }
@@ -558,7 +569,7 @@ body {
   color: #00d4ff;
   margin-top: 2px;
 }
-.step-content h3 { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 10px; }
+.step-content h3 { font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 10px; transition: color .3s ease; }
 .step-content p { font-size: .88rem; color: var(--dim); line-height: 1.7; }
 
 /* ── VIP ── */
@@ -581,7 +592,7 @@ body {
 .vip-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .vip-star { font-size: 1.4rem; color: var(--a2); }
 .vip-card-label { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .12em; color: var(--a2); }
-.vip-card-title { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -.02em; margin-bottom: 24px; }
+.vip-card-title { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -.02em; margin-bottom: 24px; transition: color .3s ease; }
 .vip-card-perks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
 .vip-perk { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--text); }
 .vip-perk-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
@@ -595,6 +606,7 @@ body {
   padding: 120px 0;
   background: var(--bg2);
   border-top: 1px solid var(--border);
+  transition: background-color .3s ease;
 }
 .download-inner {
   text-align: center;
@@ -614,14 +626,16 @@ body {
 .download-btn-wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 32px; position: relative; z-index: 1; }
 .btn-download {
   display: inline-flex; align-items: center; gap: 16px;
-  padding: 20px 40px; background: var(--accent); color: var(--bg);
-  text-decoration: none; font-weight: 700; transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 0 0 rgba(0,212,255,.4);
+  padding: 20px 40px; background: var(--bg2); color: var(--text);
+  border: 1px solid var(--border);
+  text-decoration: none; font-weight: 700; transition: transform .2s, border-color .2s, background .2s;
   border-radius: 12px;
 }
-.btn-download:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,212,255,.4); }
+.btn-download svg { color: var(--accent); }
+.btn-download:hover { transform: translateY(-3px); border-color: var(--dim); background: var(--bg3); }
 .btn-download-title { font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; }
-.btn-download-sub { font-family: 'JetBrains Mono', monospace; font-size: .68rem; opacity: .7; margin-top: 2px; }
+.btn-download-title { color: var(--text); }
+.btn-download-sub { font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--dim); margin-top: 2px; }
 .download-meta {
   display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap;
   font-size: .8rem; color: var(--dim); position: relative; z-index: 1;
